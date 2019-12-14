@@ -1,0 +1,30 @@
+<div id="form-cep">
+    <div class="form-cep-box">
+        <h1>Consulta Cep</h1>
+        <form>
+            <input [(ngModel)]="zipCode" [textMask]="{mask: maskCep, placeholderChar: '\u2000', guide: false }" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" maxlength="9" />
+            <button (click)="consultaCep()">Consultar</button>
+            <hr>
+            <p *ngIf="erro" class="message-error">{{resultCep_error}}</p>
+            <p *ngIf="erroBadRequest" class="message-error">{{resultCep_error}}</p>
+            <div class="hidden-inputs" *ngIf="hiddenInputs">
+                <label>Logradouro</label>
+                <input readonly type="text" placeholder="Logradouro" value={{resultCep.logradouro}} />
+                <label *ngIf="fieldOff">Complemento</label>
+                <input readonly *ngIf="fieldOff" type="text" placeholder="Complemento" value={{resultCep.complemento}} />
+                <label>Bairro</label>
+                <input readonly type="text" placeholder="Bairro" value={{resultCep.bairro}} />
+                <label>Localidade</label>
+                <input readonly type="text" placeholder="Localidade" value={{resultCep.localidade}} />
+                <label>UF</label>
+                <input readonly type="text" placeholder="UF" value={{resultCep.uf}} />
+                <label *ngIf="fieldOffUnidade">Unidade</label>
+                <input readonly *ngIf="fieldOffUnidade" type="text" placeholder="Unidade" value={{resultCep.unidade}} />
+                <label>IBGE</label>
+                <input readonly type="text" placeholder="IBGE" value={{resultCep.ibge}} />
+                <label>GIA</label>
+                <input readonly type="text" placeholder="GIA" value={{resultCep.gia}} />
+            </div>
+        </form>
+    </div>
+</div>
