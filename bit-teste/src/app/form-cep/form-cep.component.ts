@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./form-cep.component.scss']
 })
 export class FormCepComponent implements OnInit {
+  
   //variaveis de validação do cep
   zipCode: number;
   resultCep: any;
@@ -19,17 +20,18 @@ export class FormCepComponent implements OnInit {
   erroBadRequest:boolean = false;
   fieldOff: boolean = false;
   fieldOffUnidade: boolean = false;
+
   //ocultar inputs
   hiddenInputs: boolean = false;
 
   ngOnInit() {}
 
   constructor(private http: HttpClient) {
+    //Mascara do Cep
     this.maskCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   }
 
   consultaCep() {
-    
     
     const getUrl:string = `http://viacep.com.br/ws/${this.zipCode}/json/`
     this.http.get(getUrl).subscribe((res) => {
@@ -64,6 +66,6 @@ export class FormCepComponent implements OnInit {
       this.resultCep_error = 'Digite um CEP Válido';
 
       this.hiddenInputs = false;
-    })
+    });
   }
 }

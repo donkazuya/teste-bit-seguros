@@ -8,22 +8,22 @@
             <p *ngIf="erro" class="message-error">{{resultCep_error}}</p>
             <p *ngIf="erroBadRequest" class="message-error">{{resultCep_error}}</p>
             <div class="hidden-inputs" *ngIf="hiddenInputs">
-                <label>Logradouro</label>
-                <input readonly type="text" placeholder="Logradouro" value={{resultCep.logradouro}} />
-                <label *ngIf="fieldOff">Complemento</label>
-                <input readonly *ngIf="fieldOff" type="text" placeholder="Complemento" value={{resultCep.complemento}} />
-                <label>Bairro</label>
-                <input readonly type="text" placeholder="Bairro" value={{resultCep.bairro}} />
-                <label>Localidade</label>
-                <input readonly type="text" placeholder="Localidade" value={{resultCep.localidade}} />
-                <label>UF</label>
-                <input readonly type="text" placeholder="UF" value={{resultCep.uf}} />
-                <label *ngIf="fieldOffUnidade">Unidade</label>
-                <input readonly *ngIf="fieldOffUnidade" type="text" placeholder="Unidade" value={{resultCep.unidade}} />
-                <label>IBGE</label>
-                <input readonly type="text" placeholder="IBGE" value={{resultCep.ibge}} />
-                <label>GIA</label>
-                <input readonly type="text" placeholder="GIA" value={{resultCep.gia}} />
+                <label for="logradouro">Logradouro</label>
+                <input readonly type="text" name="logradouro" placeholder="Logradouro" value={{resultCep.logradouro}} />
+                <label for="complemento" *ngIf="fieldOff">Complemento</label>
+                <input readonly *ngIf="fieldOff" type="text" name="complemento" placeholder="Complemento" value={{resultCep.complemento}} />
+                <label for="bairro">Bairro</label>
+                <input readonly type="text" name="bairro" placeholder="Bairro" value={{resultCep.bairro}} />
+                <label for="localidade">Localidade</label>
+                <input readonly type="text" name="localidade" placeholder="Localidade" value={{resultCep.localidade}} />
+                <label for="uf">UF</label>
+                <input readonly type="text" name="uf" placeholder="UF" value={{resultCep.uf}} />
+                <label for="unidade" *ngIf="fieldOffUnidade">Unidade</label>
+                <input readonly *ngIf="fieldOffUnidade" name="unidade" type="text" placeholder="Unidade" value={{resultCep.unidade}} />
+                <label for="ibge">IBGE</label>
+                <input readonly type="text" placeholder="IBGE" name="ibge" value={{resultCep.ibge}} />
+                <label for="gia">GIA</label>
+                <input readonly type="text" placeholder="GIA" name="gia" value={{resultCep.gia}} />
             </div>
         </form>
     </div>
