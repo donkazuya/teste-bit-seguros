@@ -39,7 +39,6 @@ export class FormCepComponent implements OnInit {
     const getUrl:string = `http://viacep.com.br/ws/${this.zipCode}/json/`;
     this.http.get(getUrl).subscribe((res) => {
       this.resultCep = res;
-      console.log(this.resultCep);
 
       this.hiddenInputs = true;
       this.erro = this.resultCep.erro;
