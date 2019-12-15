@@ -31,7 +31,10 @@ export class FormCepComponent implements OnInit {
     //Mascara do Cep
     this.maskCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   }
-
+  /*
+    A função consultaCep faz a requisição da API, aplicando o cep digitado pelo usuário, além de alertar ao usuário se 
+    o CEP foi digitado corretamente ou se o CEP não existe
+  */
   consultaCep() {
     const getUrl:string = `http://viacep.com.br/ws/${this.zipCode}/json/`;
     this.http.get(getUrl).subscribe((res) => {
