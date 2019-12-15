@@ -8,11 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { TextMaskModule } from 'angular2-text-mask';
 
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +18,7 @@ import { TextMaskModule } from 'angular2-text-mask';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    TextMaskModule,
+    TextMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]

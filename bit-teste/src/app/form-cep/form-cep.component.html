@@ -8,22 +8,41 @@
             <p *ngIf="erro" class="message-error">{{resultCep_error}}</p>
             <p *ngIf="erroBadRequest" class="message-error">{{resultCep_error}}</p>
             <div class="hidden-inputs" *ngIf="hiddenInputs">
-                <label for="logradouro">Logradouro</label>
-                <input readonly type="text" name="logradouro" placeholder="Logradouro" value={{resultCep.logradouro}} />
-                <label for="complemento" *ngIf="fieldOff">Complemento</label>
-                <input readonly *ngIf="fieldOff" type="text" name="complemento" placeholder="Complemento" value={{resultCep.complemento}} />
-                <label for="bairro">Bairro</label>
-                <input readonly type="text" name="bairro" placeholder="Bairro" value={{resultCep.bairro}} />
-                <label for="localidade">Localidade</label>
-                <input readonly type="text" name="localidade" placeholder="Localidade" value={{resultCep.localidade}} />
-                <label for="uf">UF</label>
-                <input readonly type="text" name="uf" placeholder="UF" value={{resultCep.uf}} />
-                <label for="unidade" *ngIf="fieldOffUnidade">Unidade</label>
-                <input readonly *ngIf="fieldOffUnidade" name="unidade" type="text" placeholder="Unidade" value={{resultCep.unidade}} />
-                <label for="ibge">IBGE</label>
-                <input readonly type="text" placeholder="IBGE" name="ibge" value={{resultCep.ibge}} />
-                <label for="gia">GIA</label>
-                <input readonly type="text" placeholder="GIA" name="gia" value={{resultCep.gia}} />
+                <ul>
+                    <li>
+                        <p class="title">Logradouro: </p>
+                        <p class="content">{{resultCep.logradouro}}</p>
+                    </li>
+                    <li *ngIf="fieldOff">
+                        <p class="title">Complemento: </p>
+                        <p class="content">{{resultCep.complemento}}</p>
+                    </li>
+                    <li>
+                        <p class="title">Bairro: </p>
+                        <p class="content">{{resultCep.bairro}}</p>
+                    </li>
+                    <li>
+                        <p class="title">Localidade: </p>
+                        <p class="content">{{resultCep.localidade}}</p>
+                    </li>
+                    <li>
+                        <p class="title">UF: </p>
+                        <p class="content">{{resultCep.uf}}</p>
+                    </li>
+                    <li *ngIf="fieldOffUnidade">
+                        <p class="title">Unidade: </p>
+                        <p class="content">{{resultCep.unidade}}</p>
+                    </li>
+                    <li>
+                        <p class="title">IBGE: </p>
+                        <p class="content">{{resultCep.ibge}}</p>
+                    </li>
+                    <li>
+                        <p class="title">GIA: </p>
+                        <p class="content">{{resultCep.gia}}</p>
+                    </li>
+                </ul>
+                <img src= "../../assets/img/google-maps.png">
             </div>
         </form>
     </div>

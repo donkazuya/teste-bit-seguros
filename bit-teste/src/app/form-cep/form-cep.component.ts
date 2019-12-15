@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-form-cep',
   templateUrl: './form-cep.component.html',
@@ -32,8 +33,7 @@ export class FormCepComponent implements OnInit {
   }
 
   consultaCep() {
-    
-    const getUrl:string = `http://viacep.com.br/ws/${this.zipCode}/json/`
+    const getUrl:string = `http://viacep.com.br/ws/${this.zipCode}/json/`;
     this.http.get(getUrl).subscribe((res) => {
       this.resultCep = res;
       console.log(this.resultCep);

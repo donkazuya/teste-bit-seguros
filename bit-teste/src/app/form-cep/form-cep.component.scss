@@ -17,7 +17,7 @@
         }
         form {
             .message-error {
-                background-color: red;
+                background-color: #ff5b5b;
                 opacity: .8;
                 text-align: center;
                 color: #fff;
@@ -29,11 +29,35 @@
             width: 100%;
             .hidden-inputs {
                 display: flex;
-                flex-direction: column;
-                
-            }
-            label {
-                color:#fff
+                align-items: center;
+                background-color: #fff;
+                border-radius: 20px;
+                ul {
+                    margin: 10px 0;
+                    padding: 0;
+                    list-style: none;
+                    width: 60%;
+                    li {
+                        display: flex;
+                        margin: 15px;
+                        .title {
+                            margin: 0 5px;
+                            color: #631A7D
+                        }
+                        .content {
+                            margin: 0;
+                            color: #1E687D
+                        }
+                    }
+                }
+                @media(max-width: 460px) {
+                    img {
+                        display: none;
+                    }
+                    ul {
+                        width: 100%;
+                    }
+                }
             }
             input {
                 border: none;
@@ -44,12 +68,14 @@
                 color:#fff;
                 border-radius: 5px;
                 box-shadow: 1px 1px 4px #aaa;
+                outline: none;
+                text-align: center;
                 &::placeholder {
                     color: rgba(255,255,255 , .5)
                 }
             }
             button {
-                background-color: #39A1FF;
+                background-color: #15a2c0;
                 color: #fff;
                 padding: 10px 0;
                 border: none;
@@ -57,8 +83,10 @@
                 cursor: pointer;
                 margin: 10px 0 ;
                 border-radius: 5px;
+                outline: none;
+                transition: ease all .5s;
                 &:hover {
-                    background-color: #088feb;
+                    background-color: #1291AC;
                 }
             }
             hr {
