@@ -2,7 +2,7 @@
     <div class="form-cep-box">
         <h1>Consulta Cep</h1>
         <form>
-            <input [(ngModel)]="zipCode" [textMask]="{mask: maskCep, placeholderChar: '\u2000', guide: false }" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" maxlength="9" />
+            <input [(ngModel)]="zipCode" mask="00000-000" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" />
             <button (click)="consultaCep()">Consultar</button>
             <hr>
             <p *ngIf="erro" class="message-error">{{resultCep_error}}</p>

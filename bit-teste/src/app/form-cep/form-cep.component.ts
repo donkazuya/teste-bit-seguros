@@ -12,7 +12,6 @@ export class FormCepComponent implements OnInit {
   //variaveis de validação do cep
   zipCode: number;
   resultCep: any;
-  public maskCep: Array<string | RegExp>;
   resultCep_error:string;
   resultCepText_error: string;
 
@@ -28,8 +27,6 @@ export class FormCepComponent implements OnInit {
   ngOnInit() {}
 
   constructor(private http: HttpClient) {
-    //Mascara do Cep
-    this.maskCep = [/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   }
   /*
     A função consultaCep faz a requisição da API, aplicando o cep digitado pelo usuário, além de alertar ao usuário se 
