@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-form-cep',
-  templateUrl: './form-cep.component.html',
-  styleUrls: ['./form-cep.component.scss']
+    selector: 'app-form-cep',
+    templateUrl: './form-cep.component.html',
+    styleUrls: ['./form-cep.component.scss'],
+    standalone: false
 })
 export class FormCepComponent implements OnInit {
   
