@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { FormCepService } from './form-cep.service';
 
 
 @Component({
@@ -14,58 +14,61 @@ export class FormCepComponent implements OnInit {
   zipCode: number;
   resultCep: any;
   resultCep_error:string;
-  resultCepText_error: string;
 
   //variaveis de validação de campos e erro
   erro:boolean = false;
-  erroBadRequest:boolean = false;
-  fieldOff: boolean = false;
-  fieldOffUnidade: boolean = false;
-
   //ocultar inputs
   hiddenInputs: boolean = false;
 
-  ngOnInit() {}
+  
 
-  constructor(private http: HttpClient) {
+  constructor(private formCepService: FormCepService) {
   }
+
+  ngOnInit() {}
   /*
     A função consultaCep faz a requisição da API, aplicando o cep digitado pelo usuário, além de alertar ao usuário se 
     o CEP foi digitado corretamente ou se o CEP não existe
   */
   consultaCep() {
-    const getUrl:string = `http://viacep.com.br/ws/${this.zipCode}/json/`;
-    this.http.get(getUrl).subscribe((res) => {
-      this.resultCep = res;
+    this.formCepService.getCep(this.zipCode).subscribe((res) => {
+      if(!res.erro) {
+        this.hiddenInputs = true;
+        const entries = Object.entries(res);
 
-      this.hiddenInputs = true;
-      this.erro = this.resultCep.erro;
-
-      if(this.resultCep.complemento != "") {
-        this.fieldOff = true;
+        const ordemDesejada = [
+          'cep', 
+          'logradouro', 
+          'bairro', 
+          'localidade', 
+          'uf', 
+          'ddd', 
+          'complemento', 
+          'unidade', 
+          'regiao', 
+          'estado'
+        ];
+        this.resultCep = this.ordenarPorChaves(entries, ordemDesejada);
       } else {
-        this.fieldOff = false;
-      }
-
-      if(this.resultCep.unidade != ""){
-        this.fieldOffUnidade = true;
-      } else {
-        this.fieldOffUnidade = false;
-      }
-
-      if(this.erro === true) {
+        this.erro = Boolean(res);
         this.hiddenInputs = false;
-        this.erroBadRequest = false;
-        this.resultCep_error = 'Cep Invalido';
-      }
-
-      this.erroBadRequest = false; 
+        this.resultCep_error = 'Cep Inválido';
+      } 
     }, (err) => {
-      this.erroBadRequest = true;
-      this.erro = false;
-      this.resultCep_error = 'Digite um CEP Válido';
+      this.erro = true;
+      this.resultCep_error = 'Informe um CEP Válido';
 
       this.hiddenInputs = false;
     });
+  }
+
+  ordenarPorChaves(
+    entries: [string, any][],
+    ordem: string[]
+  ): [string, any][] {
+    const ordemMap = new Map(ordem.map((key, i) => [key, i]));
+    return [...entries].sort(
+      ([a], [b]) => (ordemMap.get(a) ?? Infinity) - (ordemMap.get(b) ?? Infinity)
+    );
   }
 }

@@ -9,12 +9,11 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        width: 500px;
+        width: 100vw;
+        max-width: 600px;
         min-height: 500px;
         padding: 0 15px;
-        h1 {
-            color: #fff;
-        }
+        
         form {
             .message-error {
                 background-color: #ff5b5b;
@@ -42,7 +41,8 @@
                         margin: 15px;
                         .title {
                             margin: 0 5px;
-                            color: #631A7D
+                            color: #631A7D;
+                            text-transform: capitalize;
                         }
                         .content {
                             margin: 0;
@@ -58,40 +58,6 @@
                         width: 100%;
                     }
                 }
-            }
-            input {
-                border: none;
-                font-size: 18px;
-                padding: 10px;
-                margin-bottom: 15px;
-                background-color: rgba(169,169,169, .5);
-                color:#fff;
-                border-radius: 5px;
-                box-shadow: 1px 1px 4px #aaa;
-                outline: none;
-                text-align: center;
-                &::placeholder {
-                    color: rgba(255,255,255 , .5)
-                }
-            }
-            button {
-                background-color: #15a2c0;
-                color: #fff;
-                padding: 10px 0;
-                border: none;
-                font-size: 18px;
-                cursor: pointer;
-                margin: 10px 0 ;
-                border-radius: 5px;
-                outline: none;
-                transition: ease all .5s;
-                &:hover {
-                    background-color: #1291AC;
-                }
-            }
-            hr {
-                width: 100%;
-                border-color: rgba(169,169,169, .5);
             }
         }
     }

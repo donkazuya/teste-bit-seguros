@@ -5,45 +5,24 @@
             <input [(ngModel)]="zipCode" mask="00000-000" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" />
             <button (click)="consultaCep()">Consultar</button>
             <hr>
-            <p *ngIf="erro" class="message-error">{{resultCep_error}}</p>
-            <p *ngIf="erroBadRequest" class="message-error">{{resultCep_error}}</p>
-            <div class="hidden-inputs" *ngIf="hiddenInputs">
-                <ul>
-                    <li>
-                        <p class="title">Logradouro: </p>
-                        <p class="content">{{resultCep.logradouro}}</p>
-                    </li>
-                    <li *ngIf="fieldOff">
-                        <p class="title">Complemento: </p>
-                        <p class="content">{{resultCep.complemento}}</p>
-                    </li>
-                    <li>
-                        <p class="title">Bairro: </p>
-                        <p class="content">{{resultCep.bairro}}</p>
-                    </li>
-                    <li>
-                        <p class="title">Localidade: </p>
-                        <p class="content">{{resultCep.localidade}}</p>
-                    </li>
-                    <li>
-                        <p class="title">UF: </p>
-                        <p class="content">{{resultCep.uf}}</p>
-                    </li>
-                    <li *ngIf="fieldOffUnidade">
-                        <p class="title">Unidade: </p>
-                        <p class="content">{{resultCep.unidade}}</p>
-                    </li>
-                    <li>
-                        <p class="title">IBGE: </p>
-                        <p class="content">{{resultCep.ibge}}</p>
-                    </li>
-                    <li>
-                        <p class="title">GIA: </p>
-                        <p class="content">{{resultCep.gia}}</p>
-                    </li>
-                </ul>
-                <img src= "../../assets/img/google-maps.png">
-            </div>
+            @if(hiddenInputs) {
+                <div class="hidden-inputs">
+                    <ul>
+                        @for (item of resultCep | keyvalue; track item.key) {
+                            @if(item.value[1] !== '') {
+                                <li>
+                                    <p class="title">{{item.value[0]}}: </p>
+                                    <p class="content">{{item.value[1]}}</p>
+                                </li>
+                            }
+                        }
+                    </ul>
+                    <img src= "../../assets/img/google-maps.png">
+                </div>
+            }
+            @if (erro && !hiddenInputs) {
+                <p class="message-error">{{resultCep_error}}</p>
+            }
         </form>
     </div>
 </div>
