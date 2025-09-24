@@ -49,6 +49,7 @@ export class FormCepComponent implements OnInit {
           'estado'
         ];
         this.resultCep = this.ordenarPorChaves(entries, ordemDesejada);
+        
       } else {
         this.erro = Boolean(res);
         this.hiddenInputs = false;
