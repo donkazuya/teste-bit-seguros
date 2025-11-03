@@ -9,7 +9,7 @@ import { FormCepService } from './form-cep.service';
     standalone: false
 })
 export class FormCepComponent implements OnInit {
-  
+
   //variaveis de validação do cep
   zipCode: number;
   resultCep: any;
@@ -20,14 +20,14 @@ export class FormCepComponent implements OnInit {
   //ocultar inputs
   hiddenInputs: boolean = false;
 
-  
+
 
   constructor(private formCepService: FormCepService) {
   }
 
   ngOnInit() {}
   /*
-    A função consultaCep faz a requisição da API, aplicando o cep digitado pelo usuário, além de alertar ao usuário se 
+    A função consultaCep faz a requisição da API, aplicando o cep digitado pelo usuário, além de alertar ao usuário se
     o CEP foi digitado corretamente ou se o CEP não existe
   */
   consultaCep() {
@@ -37,24 +37,24 @@ export class FormCepComponent implements OnInit {
         const entries = Object.entries(res);
 
         const ordemDesejada = [
-          'cep', 
-          'logradouro', 
-          'bairro', 
-          'localidade', 
-          'uf', 
-          'ddd', 
-          'complemento', 
-          'unidade', 
-          'regiao', 
+          'cep',
+          'logradouro',
+          'bairro',
+          'localidade',
+          'uf',
+          'ddd',
+          'complemento',
+          'unidade',
+          'regiao',
           'estado'
         ];
         this.resultCep = this.ordenarPorChaves(entries, ordemDesejada);
-        
+
       } else {
         this.erro = Boolean(res);
         this.hiddenInputs = false;
         this.resultCep_error = 'Cep Inválido';
-      } 
+      }
     }, (err) => {
       this.erro = true;
       this.resultCep_error = 'Informe um CEP Válido';
@@ -67,9 +67,28 @@ export class FormCepComponent implements OnInit {
     entries: [string, any][],
     ordem: string[]
   ): [string, any][] {
+    const substituicoes: Record<string, string> = {
+      localidade: "cidade",
+      regiao: "região"
+    };
+
     const ordemMap = new Map(ordem.map((key, i) => [key, i]));
-    return [...entries].sort(
+
+    // Aplica substituições
+    const entriesSubstituidas: [string, any][] = entries.map(([key, value]): [string, any] => {
+      const novaChave = substituicoes[key] ?? key;
+      return [novaChave, value];
+    });
+
+    // Remove duplicatas, mantendo a última ocorrência
+    const semDuplicatas = Array.from(
+      new Map(entriesSubstituidas.reverse()).entries()
+    ).reverse();
+
+    // Ordena conforme a ordem desejada
+    return semDuplicatas.sort(
       ([a], [b]) => (ordemMap.get(a) ?? Infinity) - (ordemMap.get(b) ?? Infinity)
     );
   }
+
 }
