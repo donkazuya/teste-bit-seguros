@@ -1,24 +1,23 @@
 <div id="form-cep">
     <div class="form-cep-box">
         <h1>Consulta Cep</h1>
-        <form [formGroup]="cepForm">
-            <!-- <input [(ngModel)]="zipCode" mask="00000-000" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" /> -->
+        <form [formGroup]="cepForm" (ngSubmit)="consultaCep()">
             <input formControlName="zipCode" mask="00000-000" type="text" placeholder="Informe o seu cep" />
-            <button (click)="consultaCep()">Consultar</button>
+            <button type="submit" [disabled]="cepForm.invalid">Consultar</button>
             <hr>
             @if(hiddenInputs()) {
                 <div class="hidden-inputs">
                     <ul>
-                        @for (item of resultCep() | keyvalue; track item.key) {
-                            @if(item.value[1] !== '') {
+                        @for (item of resultCep(); track item[0]) {
+                            @if(item[1] !== '') {
                                 <li>
-                                    <p class="title">{{item.value[0]}}: </p>
-                                    <p class="content">{{item.value[1]}}</p>
+                                    <p class="title">{{ item[0] }}: </p>
+                                    <p class="content">{{ item[1] }}</p>
                                 </li>
                             }
                         }
                     </ul>
-                    <img src= "../../assets/img/google-maps.png">
+                    <img src= "../../assets/img/google-maps.png" alt="Ícone do Google Maps">
                 </div>
             }
             @if (erro() && !hiddenInputs()) {

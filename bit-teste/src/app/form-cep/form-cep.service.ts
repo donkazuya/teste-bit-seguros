@@ -22,9 +22,9 @@ export class FormCepService {
   }
 
   ordenarPorChaves(
-    entries: [string, any][],
+    entries: [string, string][],
     ordem: string[]
-  ): [string, any][] {
+  ): [string, string][] {
     const substituicoes: Record<string, string> = {
       localidade: "cidade",
       regiao: "região"
