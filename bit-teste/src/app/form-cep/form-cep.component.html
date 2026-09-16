@@ -1,14 +1,15 @@
 <div id="form-cep">
     <div class="form-cep-box">
         <h1>Consulta Cep</h1>
-        <form>
-            <input [(ngModel)]="zipCode" mask="00000-000" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" />
+        <form [formGroup]="cepForm">
+            <!-- <input [(ngModel)]="zipCode" mask="00000-000" [ngModelOptions]="{standalone: true}" type="text" placeholder="Informe o seu cep" /> -->
+            <input formControlName="zipCode" mask="00000-000" type="text" placeholder="Informe o seu cep" />
             <button (click)="consultaCep()">Consultar</button>
             <hr>
             @if(hiddenInputs) {
                 <div class="hidden-inputs">
                     <ul>
-                        @for (item of resultCep | keyvalue; track item.key) {
+                        @for (item of resultCep() | keyvalue; track item.key) {
                             @if(item.value[1] !== '') {
                                 <li>
                                     <p class="title">{{item.value[0]}}: </p>
@@ -21,7 +22,7 @@
                 </div>
             }
             @if (erro && !hiddenInputs) {
-                <p class="message-error">{{resultCep_error}}</p>
+                <p class="message-error">{{resultCep_error()}}</p>
             }
         </form>
     </div>

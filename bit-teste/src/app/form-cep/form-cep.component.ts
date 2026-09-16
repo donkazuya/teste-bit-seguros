@@ -1,19 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormCepService } from './form-cep.service';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @Component({
     selector: 'app-form-cep',
     templateUrl: './form-cep.component.html',
     styleUrls: ['./form-cep.component.scss'],
-    standalone: false
+    imports: [
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      NgxMaskModule
+    ],
+    standalone: true
 })
 export class FormCepComponent implements OnInit {
 
+  private readonly formCepService = inject(FormCepService);
+  private readonly fb = inject(FormBuilder);
+  cepForm!: FormGroup;
+
   //variaveis de validação do cep
-  zipCode: number;
-  resultCep: any;
-  resultCep_error:string;
+  zipCode = signal<number | any>(null);
+  resultCep = signal<any>('');
+  resultCep_error = signal<string>('');
 
   //variaveis de validação de campos e erro
   erro:boolean = false;
@@ -22,16 +35,17 @@ export class FormCepComponent implements OnInit {
 
 
 
-  constructor(private formCepService: FormCepService) {
+  ngOnInit() {
+    this.cepForm = this.fb.group({
+      zipCode: ['', Validators.required]
+    })
   }
-
-  ngOnInit() {}
   /*
     A função consultaCep faz a requisição da API, aplicando o cep digitado pelo usuário, além de alertar ao usuário se
     o CEP foi digitado corretamente ou se o CEP não existe
   */
   consultaCep() {
-    this.formCepService.getCep(this.zipCode).subscribe((res) => {
+    this.formCepService.getCep(this.cepForm.get('zipCode')?.value).subscribe((res) => {
       if(!res.erro) {
         this.hiddenInputs = true;
         const entries = Object.entries(res);
@@ -48,16 +62,16 @@ export class FormCepComponent implements OnInit {
           'regiao',
           'estado'
         ];
-        this.resultCep = this.ordenarPorChaves(entries, ordemDesejada);
+        this.resultCep.set(this.ordenarPorChaves(entries, ordemDesejada));
 
       } else {
         this.erro = Boolean(res);
         this.hiddenInputs = false;
-        this.resultCep_error = 'Cep Inválido';
+        this.resultCep_error.set('Cep Inválido');
       }
     }, (err) => {
       this.erro = true;
-      this.resultCep_error = 'Informe um CEP Válido';
+      this.resultCep_error.set('Informe um CEP Válido');
 
       this.hiddenInputs = false;
     });
