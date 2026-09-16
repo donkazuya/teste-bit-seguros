@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { importProvidersFrom } from '@angular/core';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { NgxMaskModule } from 'ngx-mask';
 import { AppComponent } from './app.component';
@@ -10,7 +10,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         importProvidersFrom(NgxMaskModule.forRoot())
       ]

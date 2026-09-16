@@ -6,7 +6,7 @@
             <input formControlName="zipCode" mask="00000-000" type="text" placeholder="Informe o seu cep" />
             <button (click)="consultaCep()">Consultar</button>
             <hr>
-            @if(hiddenInputs) {
+            @if(hiddenInputs()) {
                 <div class="hidden-inputs">
                     <ul>
                         @for (item of resultCep() | keyvalue; track item.key) {
@@ -21,7 +21,7 @@
                     <img src= "../../assets/img/google-maps.png">
                 </div>
             }
-            @if (erro && !hiddenInputs) {
+            @if (erro() && !hiddenInputs()) {
                 <p class="message-error">{{resultCep_error()}}</p>
             }
         </form>

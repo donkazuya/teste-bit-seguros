@@ -29,9 +29,9 @@ export class FormCepComponent implements OnInit {
   resultCep_error = signal<string>('');
 
   //variaveis de validação de campos e erro
-  erro:boolean = false;
+  erro = signal<boolean>(false);
   //ocultar inputs
-  hiddenInputs: boolean = false;
+  hiddenInputs = signal<boolean>(false);
 
 
 
@@ -47,7 +47,7 @@ export class FormCepComponent implements OnInit {
   consultaCep() {
     this.formCepService.getCep(this.cepForm.get('zipCode')?.value).subscribe((res) => {
       if(!res.erro) {
-        this.hiddenInputs = true;
+        this.hiddenInputs.set(true);
         const entries = Object.entries(res);
 
         const ordemDesejada = [
@@ -65,15 +65,15 @@ export class FormCepComponent implements OnInit {
         this.resultCep.set(this.ordenarPorChaves(entries, ordemDesejada));
 
       } else {
-        this.erro = Boolean(res);
-        this.hiddenInputs = false;
+        this.erro.set(Boolean(res));
+        this.hiddenInputs.set(false);
         this.resultCep_error.set('Cep Inválido');
       }
     }, (err) => {
-      this.erro = true;
+      this.erro.set(true);
       this.resultCep_error.set('Informe um CEP Válido');
 
-      this.hiddenInputs = false;
+      this.hiddenInputs.set(false);
     });
   }
 

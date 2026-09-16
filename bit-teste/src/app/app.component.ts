@@ -11,4 +11,3 @@ import { FormCepComponent } from './form-cep/form-cep.component';
 export class AppComponent {
   title = 'Consulta Cep';
 }
-
