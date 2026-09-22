@@ -2,13 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Endereco } from './form-cep.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class FormCepService {
+  
+  private readonly baseUrl = environment.baseUrl;
+  
   constructor(private http: HttpClient) { }
 
   getCep(zipCode: string | number): Observable<Endereco> {
-    const url = `https://viacep.com.br/ws/${zipCode}/json/`;
+    const url = `${this.baseUrl}/${zipCode}/json/`;
     return this.http.get<any>(url).pipe(
       map((response: any) => {
         const { siafi, gia, ibge, erro, ...list } = response;
